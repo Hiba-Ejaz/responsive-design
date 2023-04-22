@@ -1,0 +1,43 @@
+@use "../variables/colors.scss"; 
+.header {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 1em 2em;
+	background-color: colors.$darkGrey;
+	border-bottom: 2px solid colors.$black;
+	height: 3.5rem;
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	left: 0;
+}
+@use "./variables/colors.scss";
+.header__nav__items {
+	display: flex;
+	justify-content: space-between;
+}
+.header__button {
+	background-color: colors.$lightGreen;
+	border: none;
+	color: colors.$purewhite_1;
+	height: 2rem;
+	font-size: 1rem;
+	border-radius: 0.3rem;
+	border: 1px solid colors.$black;
+	box-shadow: 2px 2px 5px rgba(11, 42, 29, 0.4);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	&:hover {
+		background-color: colors.$darkGreen;
+	}
+}
+.header__logo {
+	height: 2rem;
+	display: inline-block;
+}
+.header__anchor {
+	color: colors.$antiqueWhite;
+	text-decoration: none;
+	font-size: 0.9rem;
+}
