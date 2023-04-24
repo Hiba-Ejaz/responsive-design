@@ -1,65 +1,17 @@
 @use "./variables/colors.scss";
-
+@import "./variables/mixins.scss";
 $font-family_1: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 $font-family_2: fantasy;
 $font-family_3: Georgia, "Times New Roman", Times, serif;
-
-/*main body*/
-/* <header class="header"> and <main class="main"> header contains img and button- on top that is fixed */
-/*header nav items just have a logo img and a button (button contains anchor tag)*/
-/*Nav Bar of header animation*/
-/*ASIDE section  contains a heading*/
-/*Main*/
-/*this is for bring orange dot on top of first list item*/
-/*bringing grey dot on every list item except first and last list item*/
-/*navigation list is made up of ul that has li and each li has anchor tags*/
-/* SECTION 3  */
-/* grid has items. grid is basically a div   */
-/* div inside grid div defines one item and each item has div box that has a pinned button, an anchor tag and a paragraph  */
-/* SECTION 3  GRID:DIV has multiple items. item1,item2,item3,item4 and item5 will move up on hover and change pointer type to cursor */
-/*
-.grid div:nth-child(1):hover,
-.grid div:nth-child(2):hover,
-.grid div:nth-child(3):hover,
-.grid div:nth-child(4):hover,
-.grid div:nth-child(5):hover
-{
-  
-cursor:pointer;
-transform: translateY(-5px);
-}*/
-/* grid item 1 and item 4 are merged to make one block. grid contains items and item contains box  */
-/* button of item1 and item4 */
-/*div inside items  */
-/* PINNED BUTTON IN TOP 2 ROWS OF GRID */
-/* 3rd row of grid (item6) that has only one item  */
-/*  3rd row of grid (item6) has 2 btns they should also change their color on hover */
-/*3rd row of grid (item6) buttons should change the anchor tag color to black and button color to white*/
-/*DEFINING ITEMS FOR GRID AREAS*/
-/*PUT 4TH DIV ITEM FROM HTML INTO GRID AREA AS ITEM1*/
-/*3RD ROW (6TH GRID ITEM) IS GIVEN BACKGROUND IMAGE. PUTTING IN SEPERATE BOX SO THAT TRANSITION ONLY APPLIES TO THE IMAGE, NOT TO THE CONTEMTS)*/
-/*ON HOVER THE 3RD GRID ROW THE BACKGROUD IMAGE INSIDE IMG BOX GETS A BIT ZOOMED*/
-/*The paragraph of 3rd row contains an arrow inside a span tag which is initially not visible*/
-/*when we hover over paragraph of 3rd row the arrow inside span tag bcmz visible*/
-/*the background of 6th item (3rd row of grid) is a bit greyish*/
-/*the background of 7th item (3rd row of grid) is a bit greyish*/
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   background-color: colors.$mediumGrey;
+  position: relative;  
 }
-.header {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 1em 2em;
-  background-color: colors.$darkGrey;
-  border-bottom: 2px solid colors.$black;
-  height: 3.5rem;
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  left: 0;
+.header{
+  @include nav(0,null);
 }
 .main {
   width: 100%;
@@ -116,8 +68,9 @@ body {
   writing-mode: vertical-lr;
   transform: rotate(180deg);
 }
-.main__section1 {
+.main__section1,.footer{
   margin-left: 2em;
+  margin-right: 2em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -128,19 +81,47 @@ body {
   font-family: $font-family_1;
   margin: 2rem 0;
 }
-.main__nav__list {
+.footer{
+  position: absolute; 
+  bottom: 0; 
+  right:2em;
+top:99%;
+left:2rem;   
+  height: 50px; 
+.footer__nav{
+ .footer__license{
+  margin-left: 3rem;
+  font-size: 0.7rem;
+  color: colors.$purewhite;
+ }
+}
+.footer__icons{
+  height: 3rem;
+  width:20% ;
+  display: flex;
+  justify-content: space-between;
+  a{
+    color:white;
+    &:hover{
+      color: orange;
+    }
+  }
+} 
+}
+.main__nav__list,.footer__nav__list {
   display: flex;
   list-style: none;
   justify-content: center;
   align-items: center;
 }
-.main_list_item {
+.main_list_item,.footer_list_item {
   margin: 0.5rem;
   position: relative;
   &:first-child {
     &:before {
       content: "\2022";
-      color: colors.$blue;
+      color: colors.$orange;
+      font-size: larger;
       font-weight: bold;
       position: absolute;
       right: -0.5em;
@@ -155,6 +136,7 @@ body {
           content: "\2022";
           color: colors.$lightGrey;
           font-weight: bold;
+          font-size: larger;
           position: absolute;
           right: -0.5em;
           top: -1em;
@@ -169,27 +151,10 @@ body {
     text-decoration: none;
   }
 }
-.centerText {
-  display: block;
-  text-align: center;
-  justify-content: center;
-  align-content: center;
-  width: 100%;
-  border: 2px red solid;
-  font-weight: $font-family_1;
-  color: colors.$purewhite;
-  font-size: 1rem;
-  letter-spacing: 0.5em;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  text-transform: uppercase;
-}
-.grid {
-  border: green 3px solid;
-
-  display: grid;
+.grid {  
+display: grid;
   margin-left: 2em;
-  grid-template-areas: "item1 item1 item2 item3" "item1 item1 item4 item5" "item6 item6 item6 item6" "item7 item7 item7 item7" "item8 item8 item8 item8";
+  grid-template-areas: "item1 item1 item2 item3" "item1 item1 item4 item5" "item6 item6 item6 item6" "item7 item7 item7 item7" "item8 item8 item8 item8" "item9 item9 item9 item9" "item10 item10 item11 item11";
   .item {
     &:nth-of-type(-n + 5) {
       &:hover {
@@ -203,30 +168,47 @@ body {
         transform: translateY(-5px);
       }
     }
-    @mixin row--hover($row_num) {
-      .item__box#{$row_num} {
-        .bg_image_holder {
-          &:hover {
-            transform: scale(1.05);
-          }
-        }
-      }
-    }
-
     &:nth-child(6) {
       @include row--hover(6);
     }
     &:nth-child(7) {
       @include row--hover(7);
+      .content {
+        height: 17rem;
+        width: 60%;
+        position: relative;
+        margin: auto;
+        display: flex;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+        margin-left: 4em;
+        margin-top: 4em;
+        padding: 2em;
+        
+        .horizontal-line {
+          border: none;
+          border-top: 2px solid black;
+          left: 2em;
+          position: absolute;
+          top: 8em;
+          width: 4rem;      
+        }}
     }
     &:nth-child(8) {
       @include row--hover(8);
     }
+    &:nth-child(10) {
+      @include row--hover(10);
+    }
+    &:nth-child(11) {
+      @include row--hover(11);
+    }
   }
 }
-.item {
+.grid .item {
   $colorsBefore: colors.$transparent, colors.$blue, colors.$orange,
-    colors.$purple, colors.$pink;
+    colors.$purple, colors.$pink,colors.$lightPurple,colors.$dullOrange;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -235,12 +217,10 @@ body {
   border-radius: 1rem;
   position: relative;
   transition: transform 0.2s ease-out;
-  @for $i from 1 through 8 {
+  @for $i from 1 through 11 {
     &:nth-child(#{$i}) {
-      grid-area: item#{$i}; //assigning grid areas bu looping through
-
+      grid-area: item#{$i}; 
       @if ($i%2==0 or $i==1) {
-        // in grid row 1 and 2 there assigning paragraph and button colors based upon even and odd
         @if ($i<6) {
           .grid__item__btn {
             @if ($i!=1) {
@@ -270,7 +250,6 @@ body {
       background-repeat: no-repeat;
       background-size: cover;
       @if ($i < 6) {
-        //giving url img to first and second row. rest rows contains more containers for img
         background-image: url("images/#{$i}.jpg");
         &::before {
           content: "";
@@ -285,42 +264,39 @@ body {
       }
     }
   }
-  @mixin custom-nth($n, $height, $bg-image) {
-    overflow: hidden;
-    width: 100%;
-    height: #{$height};
-    position: relative;
-    .item__box#{$n} {
-      width: 100%;
-      height: #{$height};
-      border-radius: 1rem;
-      .bg_image_holder {
-        background-image: url("#{$bg-image}");
-        background-repeat: no-repeat;
-        background-size: cover;
-        position: absolute;
-        width: 100%;
-        height: #{$height};
-        top: 0;
-        left: 0;
-        transition: transform 0.3s ease-in-out;
-      }
-    }
-  }
-
   &:nth-child(6) {
-    @include custom-nth(6, 26rem, "images/6.jpg");
+    @include custom-nth(6, 26rem, 72rem, "images/6.jpg",none);
   }
   &:nth-child(7) {
-    @include custom-nth(7, 30rem, "images/7.jpg");
+    @include custom-nth(7, 30rem,72rem, "images/7.jpg",black);
   }
   &:nth-child(8) {
-    @include custom-nth(8, 26rem, "images/8.jpg");
+    @include custom-nth(8, 26rem, 72rem,"images/8.jpg",white);
+  }
+  &:nth-child(9) {
+    .centerText {
+     height:10rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+       font-weight: $font-family_1;
+      color: colors.$purewhite;
+      font-size: 1rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+    }
+  }
+  &:nth-child(10) {
+    @include custom-nth(10, 26rem, 35rem,"images/9.jpg",none);
+  }
+  &:nth-child(11) {
+    @include custom-nth(11, 26rem, 35rem,"images/10.jpg",none);
   }
 }
 .mergedBox {
   height: 26rem;
-  width: 20rem;
+  width: 16rem;
   position: relative;
   .grid__item__btn {
     text-align: center;
@@ -329,7 +305,7 @@ body {
 }
 .box {
   height: 12rem;
-  width: 20rem;
+  width: 16rem;
   position: relative;
   border-radius: 1rem;
 }
@@ -353,70 +329,12 @@ body {
   bottom: 0em;
   left: 0;
 }
-
-@mixin item-box(
-  $height,
-  $width,
-  $font-size,
-  $color,
-  $bg-color,
-  $border-radius
-) {
-  //mixin for item6,7,8
-  height: $height;
-  width: $width;
-  position: relative;
- a {
-    transition: all 0.3s ease;
-    text-decoration: none;
-    border: none;
-    color: $color;
-    font-size: $font-size;
-  }
-  .bg_image_holder {
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: $bg-color;
-      backdrop-filter: blur(0);
-      border-radius: $border-radius;
-    }
-  }
-  &.item__box7 {
-    height: 30rem;
-    .content {
-      height: 17rem;
-      width: 60%;
-      position: relative;
-      margin: auto;
-      display: flex;
-      overflow: hidden;
-      justify-content: center;
-      align-items: center;
-      margin-left: 4em;
-      margin-top: 4em;
-      padding: 2em;
-      .horizontal-line {
-        border: none;
-        border-top: 3px solid $color;
-        left: 2em;
-        position: absolute;
-        top: 8em;
-        width: 3rem;
-      }
-    }
-  }
-}
 .item__box6 {
   @include item-box(
     26rem,
     100%,
     0.5rem,
-    colors.$black,
+    colors.$purewhite,
     colors.$darkGreen,
     1rem
   );
@@ -436,48 +354,34 @@ body {
     26rem,
     100%,
     0.5rem,
-    colors.$black,
-    colors.$transparent,
+    colors.$purewhite,
+    #0000003d,
     1rem
   );
 }
-
-//mixins for buttons in row3,4,5
-
-@mixin button-style(
-  $left,
-  $top,
-  $border-color,
-  $hover-bg-color,
-  $hover-text-color,
-  $hover-border-color
-) {
-  width: 5rem;
-  height: 1.5rem;
-  border-radius: 3em;
-  border: $border-color 1px solid;
-  position: absolute;
-  left: $left;
-  top: $top;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1rem;
-  background-color: colors.$transparent;
-  transition: all 0.3s ease;
-  &:hover {
-    background-color: $hover-bg-color;
-    color: $hover-text-color;
-    border: $hover-border-color;
-    a {
-      background-color: $hover-bg-color;
-      color: $hover-text-color;
-      border: none;
-    }
-  }
+.item__box10 {
+  @include item-box(
+    26rem,
+    30rem,
+    0.5rem,
+    colors.$black,
+    colors.$lightPurple,
+    1rem
+  );
+}
+.item__box11 {
+  @include item-box(
+    26rem,
+    30rem,
+    0.5rem,
+    colors.$black,
+    colors.$dullOrange,
+    1rem
+  );
 }
 .grid__box6__btn1,
-.grid__box8__btn1 {
+.grid__box8__btn1
+  {
   @include button-style(
     2em,
     1em,
@@ -501,7 +405,8 @@ body {
   );
 }
 .grid__box6__btn2,
-.grid__box8__btn2 {
+.grid__box8__btn2
+ {
   @include button-style(
     8em,
     1em,
@@ -514,7 +419,17 @@ body {
     color: white;
   }
 }
-.grid__box7__btn2 {
+.grid__box10__btn1 {
+  @include button-style(
+    2em,
+    2em,
+    colors.$black,
+    colors.$black,
+    colors.$lightPurple,
+    colors.$black
+  );
+}
+.grid__box7__btn2  {
   @include button-style(
     8em,
     1em,
@@ -524,64 +439,230 @@ body {
     colors.$black
   );
 }
-
-@mixin grid-item-paragraph($color, $top, $right, $bottom, $left) {
-  position: absolute;
-  font-size: 1.5rem;
-  font-family: $font-family_2;
-  color: $color;
-  left: $left;
-  top: $top;
-  right: $right;
-  bottom: $bottom;
-  transition: all 0.9s ease-in-out;
-
-  .box_span {
-    opacity: 0;
-    height: 0;
-  }
-
-  &:hover {
-    .box_span {
-      opacity: 1;
-      height: auto;
-      display: inline;
-    }
+.grid__box11__btn1  {
+  @include button-style(
+    2em,
+    2em,
+    colors.$black,
+    colors.$black,
+    colors.$dullOrange,
+    colors.$black
+  );
+}
+.grid__box11__btn2  {
+  @include button-style(
+    8em,
+    2em,
+    colors.$black,
+    colors.$black,
+    colors.$dullOrange,
+    colors.$black
+  );
+}
+.grid__box11__btn3  {
+  @include button-style(
+    14em,
+    2em,
+    colors.$black,
+    colors.$black,
+    colors.$dullOrange,
+    colors.$black
+  );
+  a {
+    color: black;
   }
 }
-
 .grid__item6__paragraph,
 .grid__item8__paragraph {
-  @include grid-item-paragraph(colors.$purewhite, none, none, 2em, 1em);
+  @include grid-item-paragraph(colors.$purewhite, none, none, 2em, 1.2em);
 }
-.grid__item7__paragraph {
-  @include grid-item-paragraph(colors.$black, 5em, none, none, 1em);
+.grid__item7__paragraph  {
+  @include grid-item-paragraph(colors.$black, 5em, none, none, 1.2em);
 }
-
-.grid__item7__heading {
+.grid__item10__paragraph  {
+  @include grid-item-paragraph(colors.$black, 8em, none, none, 1.2em);
+}
+.grid__item11__paragraph {
+  @include grid-item-paragraph(colors.$black, 8em, none, 2em, 1.2em);
+}
+.grid__item7__heading,.grid__item10__heading {
   a {
     position: absolute;
     font-family: $font-family_2;
     color: colors.$black;
     left: 1em;
-    font-size: 2rem;
-    top: 5rem;
+    font-size: 1rem;
+    top: 4rem;
+    width: 8rem;
   }
 }
-
-.content {
-  div {
-    position: absolute;
-    font-size: 1.5rem;
-    color: colors.$black;
-    left: 1em;
-    bottom: 0;
-    a {
-      font-size: 1rem;
-      transition: cursor 0.3s ease-in-out;
-      &:hover {
-        cursor: pointer;
-      }
+ .Blog{
+ 
+  display: flex;
+  margin-left:2.2rem;  
+  margin-top: 2rem;
+.Blog__item{ 
+border: 2px yellow solid;
+margin:1rem;
+@include custom-nth(12, 26rem, 23rem, "./images/6.jpg",null);
+@include custom-nth(13, 26rem, 23rem, "./images/7.jpg",black);
+@include custom-nth(14, 26rem, 23rem, "./images/8.jpg",white);
+@include row--hover(12);
+@include row--hover(13);
+@include row--hover(14);
+.item__box12{
+@include item-box(26rem,23rem,0.5rem,colors.$purewhite, #ffa5000a, 2rem);
+.grid__box12__btn1{
+  @include button-style( 2rem, 2rem, colors.$purewhite, colors.$purewhite, colors.$black, colors.$purewhite);
+}
+.grid__box12__btn2{
+  @include button-style( 8rem, 2rem, colors.$purewhite, colors.$purewhite, colors.$black, colors.$purewhite);
+}
+a {
+  color: white;
+}
+.grid__item12__paragraph{
+@include grid-item-paragraph(colors.$purewhite, 3rem, 3rem, 5rem, 2rem);
+}
+}
+.item__box13{
+  @include item-box(26rem,23rem,0.5rem,colors.$lightGrey,#f497d466,2rem);
+  .grid__box13__btn1{
+    @include button-style( 2rem, 2rem, colors.$darkGrey, colors.$darkGrey, #f497d466, colors.$darkGrey);
+  }
+  .grid__box13__btn2{
+    @include button-style( 8rem, 2rem, colors.$darkGrey, colors.$darkGrey, #f497d466, colors.$darkGrey);
+  }
+  a {
+    color: colors.$darkGrey;
+  }
+  .grid__item13__paragraph{
+    @include grid-item-paragraph(colors.$darkGrey, 3.5rem, 2rem, 2rem, 2rem);
     }
   }
+  .item__box14{
+    @include item-box(26rem,23rem,0.5rem,colors.$purewhite,#f497d466,2rem);
+    .grid__box14__btn1{
+      @include button-style( 2rem, 2rem, colors.$purewhite, colors.$purewhite, colors.$black, colors.$purewhite);
+    }
+    .grid__box14__btn2{
+      @include button-style( 8rem, 2rem, colors.$purewhite, colors.$purewhite, colors.$black, colors.$purewhite);
+    }
+    a {
+      color: white;
+    }
+    .grid__item14__paragraph{
+      @include grid-item-paragraph(colors.$purewhite, 3.5rem, 2rem, 2rem, 2rem);
+      }
+    }
+ }
+}
+.LoadButton {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+
+  .LoadButton__btn {
+    width: 100%;
+    max-width: 100%;
+    @include formButton();
+  }
+}
+.subscribeform__submitButton{
+  width: 30%;
+  max-width: 30%;
+  display: inline-block;
+  margin: 4rem auto;
+  @include formButton();
+}
+.subscribeform__header{
+display: flex;
+width:60vw;
+text-align: center;
+justify-content: center;
+align-items: center;
+margin: auto;
+color: white;
+font-size: large;
+font-size: 3rem;
+font-weight: 800;
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.subscribeform__input{
+  display: flex;
+  width: 20rem;
+  font-size: 1rem;
+text-align: center;
+justify-content: center;
+align-items: center;
+margin: auto;
+color: white;
+border-bottom: 3px solid white;
+padding-top:2rem;
+  display: block;
+  transition: width .5s ease .2s;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-radius: 0;
+  outline: 0;
+  background-color: transparent;
+  box-shadow: none;
+  .subscribeform__ityped{
+    max-width: fit-content;
+  p{
+    animation: typing 5s steps(50) infinite;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+    background-color: aquamarine;
+    max-width: fit-content;
+    padding: 1em;
+  }
+}
+}
+@keyframes typing {
+  from {
+      width: 0%;
+  }
+  to {
+      width: 100%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  body{
+    font-size: 10px;
+    width:50%;
+  }
+  .grid {
+    width:50%;
+    display: grid;
+    grid-template-areas :"item1" "item2" 
+    "item3" "item4" 
+    "item5" "item6"
+     "item7" "item8" 
+     "item9 ."
+     "item10" "item11";
+  width: 50vw;
+  }
+  .main__section3__grid div {
+    width: 50%;
+  }
+  .Blog{
+    display: block;
+  }
+}
+@media (min-width: 480px) and (max-width: 768px) {
+  /* Add your styles here */.grid {
+    display: grid;
+    grid-template-areas :"item1" "item2" "item3" "item4" "item5" "item6" "item7" "item8" "item9" "item10" "item11";
+  
+    width: 50vw;
+    }
+    .main__section3__grid div {
+      width: 100%;
+    }
+    .Blog{
+      display: block;
+    }
 }

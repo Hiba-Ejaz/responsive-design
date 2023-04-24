@@ -1,0 +1,239 @@
+@mixin custom-nth($n, $height, $width, $bg-image,$lineColor) {
+    overflow: hidden;
+    width: $width;
+    height: #{$height};
+    position: relative;
+    border-radius: 2rem;
+    .item__box#{$n} {
+       
+      width: $width;
+      height: #{$height};
+      border-radius: 2rem;
+      .bg_image_holder {
+        background-image: url("#{$bg-image}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 2rem;
+        position: absolute;
+        width:$width;
+        height: #{$height};
+        top: 0;
+        left: 0;
+        transition: transform 0.3s ease-in-out;
+      }
+      .content {
+        h2{
+            position: absolute;
+            font-size: 1rem;
+            font-weight: bolder;
+            color: $lineColor;
+            left: 2rem;
+            bottom: 6em;
+            top:12rem;   
+        }
+        div {
+          position: absolute;
+          font-size: 1.5rem;
+          color: $lineColor;
+          left: 1.2em;
+          bottom: 1rem;
+          top:20rem;
+          a {
+            font-size: 1rem;
+            transition: cursor 0.3s ease-in-out;
+            &:hover {
+              cursor: pointer; 
+            }
+          }
+        }
+      }
+    
+      @if ($n==7 or $n==13 or $n==14){
+        @if ($n==7){
+    .content {
+        height: 17rem;
+        width: 60%;
+        position: relative;
+        margin: auto;
+        display: flex;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+        margin-left: 4em;
+        margin-top: 2em;
+        padding: 3em;
+
+    }}
+        .horizontal-line {
+          border: none;
+          border-top: 2px solid $lineColor;
+          left: 2rem;
+          position: absolute;
+          @if ($n==7){
+            top:15rem;
+          }
+          @else{
+            top:12rem;
+          }
+          
+          //top: #{$n}rem;
+          width: 4rem;
+          
+        }
+    }
+    }
+    }
+
+  
+
+  @mixin row--hover($row_num) {
+    .item__box#{$row_num} {
+      .bg_image_holder {
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+
+
+
+  @mixin item-box(
+  $height,
+  $width,
+  $font-size,
+  $color,
+  $bg-color,
+  $border-radius
+) {
+  //mixin for item6,7,8,9,10
+  height: $height;
+  width: $width;
+  position: absolute;
+  .content{
+    position: relative;
+  }
+ a {
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: none;
+    color: $color;
+    font-size: $font-size;
+  }
+  .bg_image_holder {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: $bg-color;
+      backdrop-filter: blur(0);
+      border-radius: $border-radius;
+    }
+  }
+  
+}
+
+
+//mixins for buttons in row3,4,5
+
+@mixin button-style(
+  $left,
+  $top,
+  $border-color,
+  $hover-bg-color,
+  $hover-text-color,
+  $hover-border-color
+) {
+  width: 5rem;
+  height: 1.5rem;
+  border-radius: 3em;
+  border: $border-color 1px solid;
+  position: absolute;
+  left: $left;
+  top: $top;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  background-color: colors.$transparent;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: $hover-bg-color;
+    color: $hover-text-color;
+    border: $hover-border-color;
+    a {
+      background-color: $hover-bg-color;
+      color: $hover-text-color;
+      font-weight: 700;
+      border: none;
+      transition: font-weight 0.3s ease-in;
+    }
+  }
+}
+
+@mixin grid-item-paragraph($color, $top, $right, $bottom, $left) {
+    position: absolute;
+    font-size: 1.5rem;
+    font-family: $font-family_2;
+    color: $color;
+    left: $left;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    transition: all 0.9s ease-in-out;
+  
+    .box_span {
+      opacity: 0;
+      height: 0;
+    }
+  
+    &:hover {
+      .box_span {
+        opacity: 1;
+        height: auto;
+        display: inline;
+      }
+    }
+  }
+
+
+ @mixin formButton(){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    padding: 2rem;
+    border-radius: 9999px;
+    border: none;
+    background-color: colors.$darkGrey;
+    color: colors.$purewhite;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: colors.$orange;
+      color:colors.$darkGrey;
+    }
+    &:active {
+      background-color: #555;
+    }
+ }
+ @mixin nav($top,$bottom){
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1em 2em;
+    background-color: colors.$darkGrey;
+    border-bottom: 2px solid colors.$black;
+    height: 3.5rem;
+    position: fixed;
+    z-index: 9999;
+    top: $top;
+    left: 0;
+    bottom: $bottom;
+ }
+  
+  
