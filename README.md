@@ -1,19 +1,15 @@
 # Responsive design
 
-Refer to this [link](https://preview.themeforest.net/item/maido-multipurpose-ghost-blog-theme/full_screen_preview/24837109?_ga=2.259990478.570486835.1654146705-2133876429.1654146705)(see 'Dark version') and create a similar webpage
+Refer to this [link](https://fascinating-truffle-4606f5.netlify.app/) to view my assignment
 
 ## Requirements
 
-1. Position the HTML elements using Flexbox and Grid system
-2. Implement basic animations as shown in the webpage (hover effect,
-active link styles, typing effect). You can modify the outlook of the effects
-3. Deploy your web page, using the platform of your choice (For example, Github Pages).
-4. This assignment requires the implementation of SASS.
-5. Rewrite README file with good structure.
+1  This page is implemented in HTML5 AND SASS
+2. The page contains a footer, main section, form and a header.
+2. grid and flex box has been used for designing the web page
+3. SASS has been implemented for styling
+4. mixins has been included from a seperate mixins.scss file
 
-This assignment only requires 1 static page. No JavaScript needed.
-Font family and text content can be modified as your preferences.
-The web page does not need to be fully responsive, but at least you should
-have responsive scaling for Flexbox and Grid system.
+
 
 
